@@ -1,4 +1,4 @@
-export const API_URL = `https://backend-machine-learning-awknjp2le-salwa-pratamas-projects.vercel.app/api`;
+export const API_URL = `https://backend-machine-learning.vercel.app/api`;
 
 export async function testNaive(payload: any) {
   try {

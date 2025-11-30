@@ -17,7 +17,6 @@ type NbForm = {
   alcohol: string;
 };
 
-
 export default function NaiveBayesInputPage() {
   const [form, setForm] = useState<NbForm>({
     fixed_acidity: "",
@@ -67,17 +66,17 @@ export default function NaiveBayesInputPage() {
   return (
     <div className="bg-white min-h-screen w-full p-6">
       <div className="max-w-5xl mx-auto">
-
         {/* Title */}
         <h1 className="text-2xl font-bold mb-2 text-black">
           Naive Bayes – Wine Quality Prediction
         </h1>
         <p className="mb-6 text-gray-600">
-          Fill out the values below to predict wine quality using the Naive Bayes model.
+          Fill out the values below to predict wine quality using the Naive
+          Bayes model.
         </p>
 
         {/* Input Card */}
-      <div className="bg-white shadow rounded-xl p-6 border-2 border-black">
+        <div className="bg-white shadow rounded-xl p-6 border-2 border-black">
           <h2 className="text-lg font-semibold mb-4 text-gray-700">
             Wine Characteristics (ID3)
           </h2>
@@ -124,13 +123,22 @@ export default function NaiveBayesInputPage() {
             <div className="mt-6 p-4 border rounded-lg bg-black text-white">
               <h3 className="font-semibold mb-2">Hasil Prediksi:</h3>
               <p>
-                <b>Akurasi Model:</b> {(hasil.akurasi_model * 100).toFixed(2)}%
+                <b>Akurasi Model :</b> {(hasil.akurasi_model * 100).toFixed(2)}%
               </p>
               <p>
-                <b>Kelas:</b> {hasil.kelas}
+                <b>Kelas :</b> {hasil.kelas}
               </p>
               <p>
-                <b>Prediksi:</b> {hasil.prediksi}
+                <b>Prediksi :</b> {hasil.prediksi}
+              </p>
+              <p>
+                <b>F1-SCORE :</b> {hasil.f1_score}
+              </p>
+              <p>
+                <b>Precission :</b> {hasil.precision}
+              </p>
+              <p>
+                <b>Recall :</b> {hasil.recall}
               </p>
             </div>
           )}
