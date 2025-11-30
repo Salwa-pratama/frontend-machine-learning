@@ -31,6 +31,24 @@ export default function ID3InputPage() {
     sulphates: "",
     alcohol: "",
   });
+  const handleClear = () => {
+    setForm({
+      fixed_acidity: "",
+      volatile_acidity: "",
+      citric_acid: "",
+      residual_sugar: "",
+      chlorides: "",
+      free_sulfur_dioxide: "",
+      total_sulfur_dioxide: "",
+      density: "",
+      ph: "",
+      sulphates: "",
+      alcohol: "",
+    });
+
+    setErrors({});
+    setHasil(null);
+  };
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [hasil, setHasil] = useState<any>(null);
@@ -127,11 +145,30 @@ export default function ID3InputPage() {
                 <input
                   type="number"
                   step="any"
+                  min="0"
                   name={field}
                   value={form[field as keyof ID3Form]}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    // Cegah angka negatif
+                    if (value.startsWith("-")) return;
+
+                    setForm({ ...form, [field]: value });
+
+                    // hapus error
+                    setErrors((prev) => ({ ...prev, [field]: "" }));
+                  }}
+                  // Cegah scroll mouse bikin nilai turun / negatif
+                  onWheel={(e) => e.currentTarget.blur()}
+                  // Cegah input karakter: e, E, +, -
+                  onKeyDown={(e) => {
+                    if (["e", "E", "+", "-"].includes(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
                   className="border rounded-lg p-2 text-gray-600 placeholder:text-gray-400
-                    focus:ring-2 focus:ring-blue-500 focus:outline-none"
+    focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   placeholder={`Input ${field.replace(/_/g, " ")}`}
                 />
 
@@ -146,8 +183,11 @@ export default function ID3InputPage() {
           </div>
 
           <div className="flex justify-end gap-4 mt-6">
-            <button className="px-6 py-2 border rounded-lg text-gray-700 hover:bg-gray-100">
-              Draft
+            <button
+              onClick={handleClear}
+              className="px-6 py-2 border rounded-lg text-gray-700 hover:bg-gray-100"
+            >
+              Clear
             </button>
             <button
               onClick={handlePredict}
