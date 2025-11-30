@@ -80,8 +80,37 @@ export default function ID3InputPage() {
         </h1>
 
         <p className="mb-6 text-gray-600">
-          Fill out the values below to classify wine quality using the ID3 algorithm.
+          Fill out the values below to classify wine quality using the ID3
+          algorithm.
         </p>
+        {/* Hasil */}
+        {hasil && !hasil.error && (
+          <div className="mt-6 p-4 border rounded-lg bg-black text-white">
+            <h3 className="font-semibold mb-2">Hasil Prediksi:</h3>
+            <p>
+              <b>Akurasi Model :</b> {(hasil.akurasi_model * 100).toFixed(2)}%
+            </p>
+            <p>
+              <b>Kelas :</b> {hasil.kelas}
+            </p>
+            <p>
+              <b>Prediksi :</b> {hasil.prediksi}
+            </p>
+            <p>
+              <b>F1-SCORE :</b> {hasil.f1_score}
+            </p>
+            <p>
+              <b>Precission :</b> {hasil.precision}
+            </p>
+            <p>
+              <b>Recall :</b> {hasil.recall}
+            </p>
+          </div>
+        )}
+
+        {hasil?.error && (
+          <p className="text-red-600 mt-4">API Error: {hasil.message}</p>
+        )}
 
         <div className="bg-white shadow rounded-xl p-6 border-2 border-black">
           <h2 className="text-lg font-semibold mb-4 text-gray-700">
@@ -108,7 +137,9 @@ export default function ID3InputPage() {
 
                 {/* ERROR PER FIELD */}
                 {errors[field] && (
-                  <span className="text-red-600 text-sm mt-1">{errors[field]}</span>
+                  <span className="text-red-600 text-sm mt-1">
+                    {errors[field]}
+                  </span>
                 )}
               </div>
             ))}
@@ -125,34 +156,6 @@ export default function ID3InputPage() {
               {loading ? "Processing..." : "Predict"}
             </button>
           </div>
-
-          {hasil && !hasil.error && (
-            <div className="mt-6 p-4 border rounded-lg bg-black text-white">
-              <h3 className="font-semibold mb-2">Hasil Prediksi:</h3>
-              <p>
-                <b>Akurasi Model :</b> {(hasil.akurasi_model * 100).toFixed(2)}%
-              </p>
-              <p>
-                <b>Kelas :</b> {hasil.kelas}
-              </p>
-              <p>
-                <b>Prediksi :</b> {hasil.prediksi}
-              </p>
-              <p>
-                <b>F1-SCORE :</b> {hasil.f1_score}
-              </p>
-              <p>
-                <b>Precission :</b> {hasil.precision}
-              </p>
-              <p>
-                <b>Recall :</b> {hasil.recall}
-              </p>
-            </div>
-          )}
-
-          {hasil?.error && (
-            <p className="text-red-600 mt-4">API Error: {hasil.message}</p>
-          )}
         </div>
       </div>
     </div>

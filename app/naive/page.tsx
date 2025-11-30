@@ -74,6 +74,34 @@ export default function NaiveBayesInputPage() {
           Fill out the values below to predict wine quality using the Naive
           Bayes model.
         </p>
+        {/* Hasil */}
+        {hasil && !hasil.error && (
+          <div className="mt-6 p-4 border rounded-lg bg-black text-white">
+            <h3 className="font-semibold mb-2">Hasil Prediksi:</h3>
+            <p>
+              <b>Akurasi Model :</b> {(hasil.akurasi_model * 100).toFixed(2)}%
+            </p>
+            <p>
+              <b>Kelas :</b> {hasil.kelas}
+            </p>
+            <p>
+              <b>Prediksi :</b> {hasil.prediksi}
+            </p>
+            <p>
+              <b>F1-SCORE :</b> {hasil.f1_score}
+            </p>
+            <p>
+              <b>Precission :</b> {hasil.precision}
+            </p>
+            <p>
+              <b>Recall :</b> {hasil.recall}
+            </p>
+          </div>
+        )}
+
+        {hasil?.error && (
+          <p className="text-red-600 mt-4">API Error: {hasil.message}</p>
+        )}
 
         {/* Input Card */}
         <div className="bg-white shadow rounded-xl p-6 border-2 border-black">
@@ -118,34 +146,6 @@ export default function NaiveBayesInputPage() {
               {loading ? "Processing..." : "Predict"}
             </button>
           </div>
-
-          {hasil && !hasil.error && (
-            <div className="mt-6 p-4 border rounded-lg bg-black text-white">
-              <h3 className="font-semibold mb-2">Hasil Prediksi:</h3>
-              <p>
-                <b>Akurasi Model :</b> {(hasil.akurasi_model * 100).toFixed(2)}%
-              </p>
-              <p>
-                <b>Kelas :</b> {hasil.kelas}
-              </p>
-              <p>
-                <b>Prediksi :</b> {hasil.prediksi}
-              </p>
-              <p>
-                <b>F1-SCORE :</b> {hasil.f1_score}
-              </p>
-              <p>
-                <b>Precission :</b> {hasil.precision}
-              </p>
-              <p>
-                <b>Recall :</b> {hasil.recall}
-              </p>
-            </div>
-          )}
-
-          {hasil?.error && (
-            <p className="text-red-600 mt-4">API Error: {hasil.message}</p>
-          )}
         </div>
       </div>
     </div>
